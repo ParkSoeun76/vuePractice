@@ -1,6 +1,5 @@
 <template>
-
-  <div>
+  <div id="background">
     <h1 class="center">TODO APP</h1>
     <div class="containerForInput">
       <div class="containerInput">
@@ -15,7 +14,7 @@
         <div class="containerSquare">
           <div class="containerToDoList">
             <p>{{ item }}</p>
-            <button class="buttonDelete" @click="deleteTask(index)"> Delete</button>
+            <buttonComponent buttonText="Delete" buttonColor="RedButton" @click.native="deleteTask(index)"></buttonComponent>
 
             <button class="buttonArchive" @click="archiveTask(item,index)"> Archive</button>
           </div>
@@ -23,7 +22,8 @@
       </li>
     </ul>
 
-
+<buttonComponent buttonText="Undo Archive" buttonColor="GreenButton"></buttonComponent>
+<buttonComponent buttonText="Undo Archive" buttonColor="OrangeButton"></buttonComponent>
     <!-- Completed  -->
     <h2>Completed!</h2>
     <ul>
@@ -45,12 +45,16 @@
       </li>
     </ul>
   </div>
+
 </template>
 
 
 <script>
+import ButtonComponent from './components/ButtonComponent.vue';
+
 export default {
   el: '#app',
+  components: {ButtonComponent},
   data: () => {
     return {
       taskToDo: '',
