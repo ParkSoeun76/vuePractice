@@ -57,8 +57,7 @@
 <script>
 import ButtonComponent from './components/ButtonComponent.vue';
 const firebase = require('./firestoreSetUp.js');
-import { doc, setDoc } from "firebase/firestore";
-
+import { collection, addDoc } from "firebase/firestore";
 
 export default {
   el: '#app',
@@ -91,9 +90,12 @@ export default {
       if (
           this.taskToDo !== ''
       ) {
-
-        const cityRef = doc(firebase.db, 'pets', 'BJ');
-        await setDoc(cityRef, { capital: true }, { merge: true });
+      //  const petsRef = doc(firebase.db, 'Tasks', "soeun");
+       // await setDoc(petsRef, { description: this.taskToDo });
+     
+       await addDoc(collection(firebase.db, "Tasks"), {
+        description: this.taskToDo
+      });
 
         this.tasks.push(this.taskToDo)
         this.taskToDo = ''
