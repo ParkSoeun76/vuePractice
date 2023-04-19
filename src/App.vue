@@ -1,6 +1,7 @@
 <template>
   <div id="background">
-    <h1 class="center">TODO APP</h1>
+    <h1 class="center"
+        style="color: orange">TODO APP</h1>
     <div class="containerForInput">
       <div class="containerInput">
 
