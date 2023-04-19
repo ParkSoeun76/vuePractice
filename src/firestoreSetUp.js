@@ -1,6 +1,6 @@
 import 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore/lite';
+import { getFirestore, collection } from 'firebase/firestore';
 
 var config = {
     apiKey: "AIzaSyC-OtsnTBh_8kiml9n8pTE-I2y3AVpgXfg",
@@ -12,10 +12,9 @@ var config = {
     measurementId: "G-SYMH6NHHXN"
 };
 const app = initializeApp(config);
-
 const db = getFirestore(app);
 
-
 export {
-db
+    db,
+    collection
 };

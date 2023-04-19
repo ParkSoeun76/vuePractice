@@ -6,7 +6,7 @@
     <div class="containerForInput">
       <div class="containerInput">
 
-       
+
         <input v-model="taskToDo" placeholder="write a task">
         <div>
         {{taskToDoSize}}
@@ -57,6 +57,9 @@
 <script>
 import ButtonComponent from './components/ButtonComponent.vue';
 const firebase = require('./firestoreSetUp.js');
+import { doc, setDoc } from "firebase/firestore";
+
+
 export default {
   el: '#app',
   components: {ButtonComponent},
@@ -82,26 +85,15 @@ export default {
   */
 
   methods: {
-    
 
-    saveTask() {
+
+    async saveTask() {
       if (
           this.taskToDo !== ''
       ) {
-        // TODO: Replace the following with your app's Firebase project configuration
 
-      
-        firebase.db.collection("pets").doc().set({
-        name: "",
-        state: "",
-        country: ""
-        })
-        .then(() => {
-            console.log("Document successfully written!");
-        })
-        .catch((error) => {
-            console.error("Error writing document: ", error);
-        });
+        const cityRef = doc(firebase.db, 'pets', 'BJ');
+        await setDoc(cityRef, { capital: true }, { merge: true });
 
         this.tasks.push(this.taskToDo)
         this.taskToDo = ''
@@ -212,7 +204,7 @@ button {
   overflow: hidden;
   transition: 0.5s ease-in-out 0s;
   background-color: white;
-  
+
 }
 
 .buttonDelete {
