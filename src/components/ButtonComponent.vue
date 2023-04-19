@@ -1,5 +1,6 @@
 <template>
-<button :class="buttonColor">
+<button :class="buttonColor + ' button'" >
+
  {{buttonText}}
 </button>
 </template>
@@ -18,6 +19,9 @@ export default {
             default: ""
         }
         
+    },
+    mounted() {
+      console.log('mounted')
     }
 }
 </script>
@@ -35,7 +39,6 @@ export default {
 .button{
     font-family: "Nunito", sans-serif;
     width: 60px;
-    height: 30px;
     border: none;
     color: white;
     padding: 7px 9px;

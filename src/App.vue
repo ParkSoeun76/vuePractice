@@ -1,11 +1,16 @@
 <template>
-  <div id="background">
+  <body  id="background">
+
     <h1 class="center">TODO APP</h1>
+  <div class="dashboard">
     <div class="containerForInput">
       <div class="containerInput">
 
+       
         <input v-model="taskToDo" placeholder="write a task">
-
+        <div>
+        {{taskToDoSize}}
+        </div>
         <button @click="saveTask()"> + Add</button>
       </div>
     </div>
@@ -45,13 +50,13 @@
       </li>
     </ul>
   </div>
-
+</body>
 </template>
 
 
 <script>
 import ButtonComponent from './components/ButtonComponent.vue';
-
+const firebase = require('./firestoreSetUp.js');
 export default {
   el: '#app',
   components: {ButtonComponent},
@@ -62,15 +67,42 @@ export default {
         'Buy milk',
         'Eat fruit'
       ],
-      taskArchieved: []
+      taskArchieved: [],
+      //taskToDoSize: 0
     };
   },
 
+  /*
+  watch: {
+    taskToDo(newValue) {
+     //console.log(newValue)
+     this.taskToDoSize = newValue.length
+    }
+  },
+  */
+
   methods: {
+    
+
     saveTask() {
       if (
           this.taskToDo !== ''
       ) {
+        // TODO: Replace the following with your app's Firebase project configuration
+
+      
+        firebase.db.collection("pets").doc().set({
+        name: "",
+        state: "",
+        country: ""
+        })
+        .then(() => {
+            console.log("Document successfully written!");
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+
         this.tasks.push(this.taskToDo)
         this.taskToDo = ''
       }
@@ -95,11 +127,13 @@ export default {
 <style>
 body {
   text-align: center;
-  background-color: #ffffff;
+/*  background-color: #ffffff;*/
+
 }
 
 #background {
   background-image: linear-gradient(200deg, #8C4CF8, #F8BE4C);
+  height: 100vh;
 }
 
 section {
@@ -118,6 +152,7 @@ div {
 
 
 h1 {
+  margin-top: 50px;
   font-family: 'Nunito', sans-serif;
   font-size: 40px;
 }
@@ -150,7 +185,7 @@ input {
   margin: 0 auto;
   text-align: left;
   border: 1px solid #000000;
-  width: 130px 27px;
+  width: 150px 20px;
   padding: 2px 40px;
   border-radius: 2px;
 }
@@ -167,6 +202,17 @@ button {
   display: inline-block;
   font-size: 15px;
   border-radius: 4px;
+}
+
+.dashboard {
+  position: relative;
+  width: 80%;
+  max-width: 50rem;
+  margin: 0 auto 3rem;
+  overflow: hidden;
+  transition: 0.5s ease-in-out 0s;
+  background-color: white;
+  
 }
 
 .buttonDelete {
@@ -222,6 +268,7 @@ ul {
 
 .containerForInput {
   display: flex;
+  width: 400px;
   justify-content: center;
 }
 
@@ -232,7 +279,7 @@ ul {
 
 .containerInput {
   display: flex;
-  width: 400px;
+  width: 380px;
   justify-content: flex-start;
   margin: 5px;
 
