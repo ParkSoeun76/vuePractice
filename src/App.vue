@@ -11,7 +11,7 @@
         <div>
         {{taskToDoSize}}
         </div>
-        <button @click="saveTask()"> + Add</button>
+        <button @click="saveTask()"> + </button>
       </div>
     </div>
     <ul>
@@ -19,31 +19,32 @@
         <div class="containerSquare">
           <div class="containerToDoList">
             <p>{{ item }}</p>
-            <buttonComponent buttonText="Delete" buttonColor="RedButton" @click.native="deleteTask(index)"></buttonComponent>
-
-            <button class="buttonArchive" @click="archiveTask(item,index)"> Archive</button>
+            <buttonComponent buttonText="Delete" buttonColor="RedButton" @click.native="deleteTask(index)" >
+             <img src="assets/trash.png"/>
+            </buttonComponent>
+           
+            <buttonComponent buttonText="Complete" buttonColor="GreenButton" @click.native="archiveTask(item,index)">
+              <img src="complete.png" />
+            </buttonComponent>
+          
           </div>
         </div>
       </li>
     </ul>
 
-<buttonComponent buttonText="Undo Archive" buttonColor="GreenButton"></buttonComponent>
-<buttonComponent buttonText="Undo Archive" buttonColor="OrangeButton"></buttonComponent>
     <!-- Completed  -->
     <h2>Completed!</h2>
     <ul>
       <li v-for="(item, index, key) in taskArchieved" :key="key">
-        <div class="containerForInput">
+        <div class="containerSquare">
           <div class="containerCompleted">
 
             <p>
               {{ item }}
             </p>
 
-
-            <button class="buttonUndoArchive" @click="undoArchive(item,index)">
-              Undo Archive
-            </button>
+            <buttonComponent buttonText="Undo" buttonColor="OrangeButton" @click.native="undoArchive(item,index)">
+            </buttonComponent>
           </div>
         </div>
 
@@ -56,6 +57,7 @@
 
 <script>
 import ButtonComponent from './components/ButtonComponent.vue';
+
 const firebase = require('./firestoreSetUp.js');
 import { collection, addDoc } from "firebase/firestore";
 
@@ -121,15 +123,17 @@ export default {
 <style>
 body {
   text-align: center;
-/*  background-color: #ffffff;*/
+  height: 100vh;
+  background-image: linear-gradient(200deg, #8C4CF8, #F8BE4C);
+  height: 100vh;
 
 }
-
+/*
 #background {
   background-image: linear-gradient(200deg, #8C4CF8, #F8BE4C);
   height: 100vh;
 }
-
+*/
 section {
   display: block;
 }
@@ -142,13 +146,16 @@ div {
   background-color: white;
   box-shadow: 0px 5px 15px rgba(black, .25);
   border-radius: 20px;
+  text-align: center;
 }
 
 
 h1 {
-  margin-top: 50px;
   font-family: 'Nunito', sans-serif;
   font-size: 40px;
+  margin-top: 30px;
+  color:#EEEEEE;
+  
 }
 
 h2 {
@@ -167,91 +174,37 @@ p {
 input::placeholder {
   font-family: "Nunito", sans-serif;
   font-size: 19px;
-  margin: 0 auto;
+  margin-right: 50px;
   text-align: left;
   width: 150px 27px;
 
 }
 
 input {
+  width: 100%;
+  border: 0;
+  outline: none;
+  color: #000000;
+  margin-right: 50px;
+  margin-right: 50px;
+  font-weight: 300;
   font-family: "Nunito", sans-serif;
   font-size: 19px;
   margin: 0 auto;
   text-align: left;
-  border: 1px solid #000000;
   width: 150px 20px;
-  padding: 2px 40px;
+  padding: 2px 30px;
   border-radius: 2px;
-}
-
-
-button {
-  font-family: "Nunito", sans-serif;
-  background-color: #008CBA;
-  border: none;
-  color: white;
-  padding: 8px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 15px;
-  border-radius: 4px;
 }
 
 .dashboard {
   position: relative;
   width: 80%;
-  max-width: 50rem;
-  margin: 0 auto 3rem;
+  max-width: 800px;
+  margin: 0 auto 50px;
   overflow: hidden;
   transition: 0.5s ease-in-out 0s;
-  background-color: white;
-
-}
-
-.buttonDelete {
-  font-family: "Nunito", sans-serif;
-  width: 60px;
-  height: 30px;
-  background-color: #D5342C;
-  border: none;
-  color: white;
-  padding: 5px 7px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 13px;
-  border-radius: 4px;
-}
-
-.buttonArchive {
-  font-family: "Nunito", sans-serif;
-  width: 60px;
-  height: 30px;
-  background-color: #A6D651;
-  border: none;
-  color: white;
-  padding: 7px 9px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 13px;
-  border-radius: 4px;
-}
-
-.buttonUndoArchive {
-  font-family: "Nunito", sans-serif;
-  width: 60px;
-  height: 30px;
-  background-color: #FA8F2A;
-  border: none;
-  color: white;
-  padding: 7px 9px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 13px;
-  border-radius: 4px;
+  background-color: white; 
 }
 
 ul {
@@ -260,50 +213,99 @@ ul {
   padding: 0;
 }
 
+
+button{
+  font-family: "Nunito", sans-serif;
+  background-color: #ae77c2;
+  width: 30px;
+  height: 30px;
+  border: none;
+  color: white;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  margin-left: 5px;
+ /* padding: 7px 9px; */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 30px;
+  border-radius: 50%;
+}
+
+img {
+  width: 20px;
+  height: 20px;
+}
+
+.taskNew {
+  width:300px;
+  height:50px;
+  background-color: #ffffff;
+  align-items: left;
+  justify-content: center;
+  padding: 0.8rem 1rem 0.8rem 1rem;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out 0s;
+  border: 0.3rem solid color-brand-3;
+  border-radius: 5rem;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .containerForInput {
   display: flex;
-  width: 400px;
+  width: 450px;
   justify-content: center;
 }
 
 .containerSquare {
+  width: 500px;
   display: flex;
   justify-content: center;
 }
 
 .containerInput {
   display: flex;
-  width: 380px;
+  width: 500px;
   justify-content: flex-start;
+  border: 3px solid #b795c8;
   margin: 5px;
+  border-radius: 50px;
 
 }
 
 .containerToDoList {
   display: flex;
   justify-content: flex-start;
-  margin: 3px;
-  width: 400px;
-  height: 48px;
-  gap: 8px 30px;
-  row-gap: 5px;
+  margin: 1px;
+  width: 440px;
+  height: 45px;
+  gap: 1px 30px;
+  row-gap: 1px;
   align-items: center;
-  background-color: #EEEEEE;
-
+  background-color: #f5eef7;
+  border: 1px solid #b795c8;
   border-radius: 0px;
 }
 
 .containerCompleted {
   display: flex;
   justify-content: flex-start;
-  margin: 5px;
-  width: 400px;
-  height: 50px;
-  gap: 10px 120px;
-  row-gap: 5px;
-  column-gap: 120px;
+  margin: 1px;
+  width: 440px;
+  height: 45px;
+  gap: 1px 30px;
+  row-gap: 1px;
   align-items: center;
-  background-color: #EEEEEE;
+  background-color: #f5eef7;
+  border: 1px solid #b795c8;
   border-radius: 0px;
+}
+
+img {
+
 }
 </style>

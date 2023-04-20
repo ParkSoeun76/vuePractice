@@ -41,7 +41,7 @@ export default {
     width: 60px;
     border: none;
     color: white;
-    padding: 7px 9px;
+    padding: 3px 3px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
